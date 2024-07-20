@@ -16,30 +16,30 @@ Future<void> initDependencies() async {
     anonKey: AppSecrets.anonKey,
   );
   serviceLocator.registerLazySingleton(() => supabase
-      .client); //registerLzySingleton because we want the same instance thorughout the app.
+      .client); //registerLazySingleton because we want the same instance thorughout the app.
 }
 
 void _initAuth() {
-  serviceLocator.registerFactory<AuthRemoteDataBaseSource>(//type of data that we are returning.registerFactory because we always need a new instanc of authRepository.
+  serviceLocator.registerFactory<AuthRemoteDataBaseSource>(
+    //type of data that we are returning.registerFactory because we always need a new instanc of authRepository.
     () => AuthRemoteDataBaseSourceImpl(
-      supabaseClient:
-          serviceLocator(), //it looks for the dependency that has the same type as supabase client.
+      serviceLocator(), //it looks for the dependency that has the same type as supabase client.
     ),
   );
 
   serviceLocator.registerFactory<AuthRepository>(
     () => AuthRepositoryImpl(
-      remoteDataBaseSource: serviceLocator(),
+      serviceLocator(),
     ),
   );
 
   serviceLocator.registerFactory(
     () => UserSignUp(
-      authRepository: serviceLocator(),
+      serviceLocator(),
     ),
   );
 
-  serviceLocator.registerLazySingleton(
+  serviceLocator.registerLazySingleton(//we need the same state across our app.
     () => AuthBloc(
       userSignUp: serviceLocator(),
     ),
