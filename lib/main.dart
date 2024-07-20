@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
-  await Supabase.initialize(
+  WidgetsFlutterBinding.ensureInitialized();
+  final supabase = await Supabase.initialize(
     url: AppSecrets.supabaseUrl,
-    anonKey:
-        AppSecrets.anonKey,
+    anonKey: AppSecrets.anonKey,
   );
   runApp(const MyApp());
 }
