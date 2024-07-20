@@ -3,22 +3,20 @@ import 'package:blog_app/features/auth/presentation/widgets/auth_field.dart';
 import 'package:blog_app/features/auth/presentation/widgets/auth_gradient_button.dart';
 import 'package:flutter/material.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class LogInScreen extends StatefulWidget {
+  const LogInScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<LogInScreen> createState() => _LogInScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController nameController = TextEditingController();
+class _LogInScreenState extends State<LogInScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
@@ -43,11 +41,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               const SizedBox(height: 30),
-              AuthField(
-                controller: nameController,
-                hint: "Name",
-                obscureText: false,
-              ),
               const SizedBox(height: 15),
               AuthField(
                 controller: emailController,
@@ -65,11 +58,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
               const SizedBox(height: 20),
               RichText(
                 text: TextSpan(
-                  text: "Already have an account? ",
+                  text: "Don't have an account? ",
                   style: Theme.of(context).textTheme.titleMedium,
                   children: [
                     TextSpan(
-                      text: 'Sign In',
+                      text: 'Sign Up',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             color: AppPallete.gradient2,
                             fontWeight: FontWeight.bold,
