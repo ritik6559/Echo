@@ -55,7 +55,8 @@ class _LogInScreenState extends State<LogInScreen> {
                 obscureText: true,
               ),
               const SizedBox(height: 20),
-              const AuthGradientButton(
+              AuthGradientButton(
+                onTap: (){},
                 text: 'Sign In',
               ),
               const SizedBox(height: 20),
