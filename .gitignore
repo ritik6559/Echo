@@ -9,7 +9,6 @@
 .history
 .svn/
 migrate_working_dir/
-/app_secrets.dart
 
 # IntelliJ related
 *.iml
@@ -21,6 +20,8 @@ migrate_working_dir/
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
 #.vscode/
+
+lib/core/secrets/app_secrets.dart
 
 # Flutter/Dart/Pub related
 **/doc/api/
