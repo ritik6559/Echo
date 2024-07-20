@@ -1,3 +1,4 @@
+import 'package:blog_app/core/theme/theme.dart';
 import 'package:blog_app/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Blog App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.darkThemeMode,
       debugShowCheckedModeBanner: false,
       home: const SignUpScreen(),
     );
