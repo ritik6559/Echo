@@ -6,7 +6,6 @@ import 'package:blog_app/features/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
-
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataBaseSource remoteDataBaseSource;
 
@@ -54,6 +53,25 @@ class AuthRepositoryImpl implements AuthRepository {
     } on ServerExcpetion catch (e) {
       return left(
         Failure(e.message),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, User>> currentUser() async {
+    try {
+      final user = await remoteDataBaseSource.getCurrentUserData();
+      if (user == null) {
+        return Left(
+          Failure('User not found'),
+        );
+      }
+      return right(user);
+    } on ServerExcpetion catch (e) {
+      return Left(
+        Failure(
+          e.message,
+        ),
       );
     }
   }
