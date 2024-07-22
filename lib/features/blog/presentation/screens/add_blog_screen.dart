@@ -1,4 +1,5 @@
 import 'package:blog_app/core/theme/app_pallete.dart';
+import 'package:blog_app/features/blog/presentation/widgets/blog_editor.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,18 @@ class AddBlogScreen extends StatefulWidget {
 }
 
 class _AddBlogScreenState extends State<AddBlogScreen> {
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+
+  List<String> selectedTopics = [];
+
+  @override
+  void dispose() {
+    super.dispose();
+    titleController.dispose();
+    descriptionController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,13 +42,15 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
           child: Column(
             children: [
               DottedBorder(
-                radius: const Radius.circular(20),
+                radius: const Radius.circular(40),
                 color: AppPallete.borderColor,
-                dashPattern: const [15,6],
+                dashPattern: const [15, 6],
                 strokeCap: StrokeCap.round,
                 child: Container(
                   height: 150,
                   width: double.infinity,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(20)),
                   child: const Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -55,7 +70,58 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                     ],
                   ),
                 ),
-              )
+              ),
+              const SizedBox(height: 20),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    'Technology',
+                    'Business',
+                    'Programming',
+                    'Entertainment',
+                    'World Affairs'
+                  ]
+                      .map(
+                        (e) => Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              if (selectedTopics.contains(e)) {
+                                selectedTopics.remove(e);
+                              } else {
+                                selectedTopics.add(e);
+                              }
+                              setState(() {});
+                            },
+                            child: Chip(
+                              color: selectedTopics.contains(e)
+                                  ? const WidgetStatePropertyAll(
+                                      AppPallete.gradient1,
+                                    )
+                                  : null,
+                              side: selectedTopics.contains(e)
+                                  ? null
+                                  : const BorderSide(
+                                      color: AppPallete.borderColor,
+                                    ),
+                              label: Text(
+                                e,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ),
+              const SizedBox(height: 10),
+              BlogEditor(controller: titleController, hint: 'Blog Title'),
+              BlogEditor(
+                  controller: descriptionController, hint: 'Blog description'),
             ],
           ),
         ),
