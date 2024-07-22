@@ -1,3 +1,4 @@
+import 'package:blog_app/features/blog/presentation/screens/add_blog_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,13 @@ class BlogScreen extends StatelessWidget {
         title: const Text('Blog App'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const AddBlogScreen(),
+                ),
+              );
+            },
             icon: const Icon(
               CupertinoIcons.add_circled,
             ),
