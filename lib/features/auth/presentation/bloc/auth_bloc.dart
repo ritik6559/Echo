@@ -1,5 +1,6 @@
+import 'package:blog_app/core/common/cubits/cubit/app_user_cubit.dart';
 import 'package:blog_app/core/usecase/use_case.dart';
-import 'package:blog_app/features/auth/domain/entities/user.dart';
+import 'package:blog_app/core/common/entities/user.dart';
 import 'package:blog_app/features/auth/domain/usecases/current_user.dart';
 import 'package:blog_app/features/auth/domain/usecases/user_log_in.dart';
 import 'package:blog_app/features/auth/domain/usecases/user_sign_up.dart';
@@ -13,14 +14,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserSignUp _userSignUp;
   final UserLogIn _userLogIn;
   final CurrentUser _currentUser;
+  final AppUserCubit _appUserCubit;
 
   AuthBloc({
     required UserSignUp userSignUp,
     required UserLogIn userLogIn,
     required CurrentUser currentUser,
+    required AppUserCubit appUserCubit,
   })  : _userSignUp = userSignUp,
         _userLogIn = userLogIn,
         _currentUser = currentUser,
+        _appUserCubit = appUserCubit,
         super(
           AuthInitial(),
         ) {
@@ -43,11 +47,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (l) => emit(
         AuthFailure(message: l.message),
       ),
-      (user) => emit(
-        AuthSuccess(
-          user: user,
-        ),
-      ),
+      (user) => _emitAuthSuccess(user,emit),
     );
   }
 
@@ -63,9 +63,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (l) => emit(
         AuthFailure(message: l.message),
       ),
-      (user) => emit(
-        AuthSuccess(user: user),
-      ),
+      (user) => _emitAuthSuccess(user,emit),
     );
   }
 
@@ -78,11 +76,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           message: l.message,
         ),
       ),
-      (user) => emit(
-        AuthSuccess(
-          user: user,
-        ),
-      ),
+      (user) => _emitAuthSuccess(user,emit),
+    );
+  }
+
+  void _emitAuthSuccess(User user, Emitter<AuthState> emit) {
+    _appUserCubit.updateUser(user);
+    emit(
+      AuthSuccess(user: user),
     );
   }
 }

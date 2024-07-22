@@ -1,3 +1,4 @@
+import 'package:blog_app/core/common/cubits/cubit/app_user_cubit.dart';
 import 'package:blog_app/core/secrets/app_secrets.dart';
 import 'package:blog_app/features/auth/data/datasources/auth_remote_data_base_source.dart';
 import 'package:blog_app/features/auth/data/repositories/auth_repository_impl.dart';
@@ -19,6 +20,11 @@ Future<void> initDependencies() async {
   );
   serviceLocator.registerLazySingleton(() => supabase
       .client); //registerLazySingleton because we want the same instance thorughout the app.
+
+  //core
+  serviceLocator.registerLazySingleton(
+    () => AppUserCubit(),
+  );
 }
 
 void _initAuth() {
@@ -53,13 +59,12 @@ void _initAuth() {
     ),
   );
 
-  serviceLocator.registerLazySingleton(//we need the same state across our app.
+  serviceLocator.registerLazySingleton(
+    //we need the same state across our app.
     () => AuthBloc(
-      userSignUp: serviceLocator(),
-      userLogIn: serviceLocator(),
-      currentUser: serviceLocator(),
-    ),
+        userSignUp: serviceLocator(),
+        userLogIn: serviceLocator(),
+        currentUser: serviceLocator(),
+        appUserCubit: serviceLocator()),
   );
-
-
 }
