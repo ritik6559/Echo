@@ -47,11 +47,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (l) => emit(
         AuthFailure(message: l.message),
       ),
-      (user) => _emitAuthSuccess(user,emit),
+      (user) => _emitAuthSuccess(user, emit),
     );
   }
 
   void _onAuthLogIn(AuthLognIn event, Emitter<AuthState> emit) async {
+    emit(
+      AuthLoading(),
+    );
     final res = await _userLogIn(
       UserLogInParams(
         email: event.email,
@@ -63,7 +66,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       (l) => emit(
         AuthFailure(message: l.message),
       ),
-      (user) => _emitAuthSuccess(user,emit),
+      (user) => _emitAuthSuccess(user, emit),
     );
   }
 
@@ -76,7 +79,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           message: l.message,
         ),
       ),
-      (user) => _emitAuthSuccess(user,emit),
+      (user) => _emitAuthSuccess(user, emit),
     );
   }
 
