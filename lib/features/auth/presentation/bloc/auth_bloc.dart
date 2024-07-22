@@ -1,4 +1,4 @@
-import 'package:blog_app/core/common/cubits/cubit/app_user_cubit.dart';
+import 'package:blog_app/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:blog_app/core/usecase/use_case.dart';
 import 'package:blog_app/core/common/entities/user.dart';
 import 'package:blog_app/features/auth/domain/usecases/current_user.dart';
@@ -28,13 +28,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         super(
           AuthInitial(),
         ) {
+    on<AuthEvent>((_, emit) => emit(AuthLoading(),));//no matter what event is it will always show loading indicator.
     on<AuthSignUp>(_onAuthSignUp);
     on<AuthLognIn>(_onAuthLogIn);
     on<AuthIsUserLoggedIn>(_onAuthIsUserLoggedIn);
   }
 
   void _onAuthSignUp(AuthSignUp event, Emitter<AuthState> emit) async {
-    emit(AuthLoading());
     final res = await _userSignUp(
       UserSignUpParams(
         email: event.email,
@@ -52,9 +52,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _onAuthLogIn(AuthLognIn event, Emitter<AuthState> emit) async {
-    emit(
-      AuthLoading(),
-    );
     final res = await _userLogIn(
       UserLogInParams(
         email: event.email,

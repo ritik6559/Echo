@@ -47,7 +47,7 @@ class AuthRemoteDataBaseSourceImpl implements AuthRemoteDataBaseSource {
       );
     }
   }
-
+  
   @override
   Future<UserModel?> getCurrentUserData() async {
     try {

@@ -1,4 +1,4 @@
-import 'package:blog_app/core/common/cubits/cubit/app_user_cubit.dart';
+import 'package:blog_app/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:blog_app/core/secrets/app_secrets.dart';
 import 'package:blog_app/features/auth/data/datasources/auth_remote_data_base_source.dart';
 import 'package:blog_app/features/auth/data/repositories/auth_repository_impl.dart';

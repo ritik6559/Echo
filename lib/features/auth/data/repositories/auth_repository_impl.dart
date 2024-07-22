@@ -63,7 +63,7 @@ class AuthRepositoryImpl implements AuthRepository {
       final user = await remoteDataBaseSource.getCurrentUserData();
       if (user == null) {
         return Left(
-          Failure('User not found'),
+          Failure('Log In First'),
         );
       }
       return right(user);
