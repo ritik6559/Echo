@@ -153,6 +153,7 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
               ),
               const SizedBox(height: 10),
               BlogEditor(controller: titleController, hint: 'Blog Title'),
+              const SizedBox(height: 10),
               BlogEditor(
                   controller: descriptionController, hint: 'Blog description'),
             ],
