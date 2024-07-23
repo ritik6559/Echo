@@ -74,12 +74,12 @@ class _AddBlogScreenState extends State<AddBlogScreen> {
                         selectImage();
                       },
                       child: DottedBorder(
-                        radius: const Radius.circular(20),
+                        radius: const Radius.circular(100),
                         color: AppPallete.borderColor,
-                        dashPattern: const [15, 6],
+                        dashPattern: const [15, 4],
                         strokeCap: StrokeCap.round,
                         child: Container(
-                          height: 150,
+                          height: 200,
                           width: double.infinity,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20)),
