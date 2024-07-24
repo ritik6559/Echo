@@ -10,6 +10,7 @@ abstract interface class BlogRemoteDataSource {
     required File image,
     required BlogModel blog,
   });
+  Future<List<BlogModel>> getAllBlogs();
 }
 
 class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
@@ -41,7 +42,27 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
             image,
           );
 
-      return supabaseClient.storage.from('blog_images').getPublicUrl(blog.id);//getPublicUrl path should be same as defined above.
+      return supabaseClient.storage.from('blog_images').getPublicUrl(
+          blog.id); //getPublicUrl path should be same as defined above.
+    } catch (e) {
+      throw ServerExcpetion(
+        message: e.toString(),
+      );
+    }
+  }
+
+  @override
+  Future<List<BlogModel>> getAllBlogs() async {
+    try {
+      final blogs =
+          await supabaseClient.from('blogs').select('*,profiles (name)');
+      return blogs
+          .map(
+            (blog) => BlogModel.fromJson(blog).copyWith(
+              posterName: blog['profiles']['name'],
+            ),
+          )
+          .toList();
     } catch (e) {
       throw ServerExcpetion(
         message: e.toString(),
