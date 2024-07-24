@@ -40,7 +40,7 @@ class BlogRepositoryImpl implements BlogRepository {
       );
       final uploadedBlog = await blogRemoteDataSource.uploadBlog(blogModel);
       return Right(uploadedBlog);
-    } on ServerExcpetion catch (e) {
+    } on ServerException catch (e) {
       return Left(
         Failure(
           e.message,
@@ -54,7 +54,7 @@ class BlogRepositoryImpl implements BlogRepository {
     try {
       final blogs = await blogRemoteDataSource.getAllBlogs();
       return right(blogs);
-    } on ServerExcpetion catch (e) {
+    } on ServerException catch (e) {
       return left(
         Failure(
           e.message,

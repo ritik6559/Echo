@@ -25,7 +25,7 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
 
       return BlogModel.fromJson(blogData.first);
     } catch (e) {
-      throw ServerExcpetion(
+      throw ServerException(
         message: e.toString(),
       );
     }
@@ -43,9 +43,10 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
           );
 
       return supabaseClient.storage.from('blog_images').getPublicUrl(
-          blog.id); //getPublicUrl path should be same as defined above.
+            blog.id,
+          ); //getPublicUrl path should be same as defined above.
     } catch (e) {
-      throw ServerExcpetion(
+      throw ServerException(
         message: e.toString(),
       );
     }
@@ -63,10 +64,10 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
             ),
           )
           .toList();
+    }  on PostgrestException catch (e) {
+      throw ServerException(message: e.message);
     } catch (e) {
-      throw ServerExcpetion(
-        message: e.toString(),
-      );
+      throw ServerException(message: e.toString());
     }
   }
 }
