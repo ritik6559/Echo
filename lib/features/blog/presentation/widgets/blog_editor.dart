@@ -16,7 +16,13 @@ class BlogEditor extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hint,
       ),
-      maxLines: null,//with null it can have infinie no of lines.
+      maxLines: null, //with null it can have infinie no of lines.
+      validator: (value) {
+        if (value!.isEmpty) {
+          return '$hint is missing';
+        }
+        return null;
+      },
     );
   }
 }
