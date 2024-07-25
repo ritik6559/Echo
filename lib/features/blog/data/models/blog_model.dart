@@ -31,7 +31,7 @@ class BlogModel extends Blog {
       posterId: map['poster_id'] ?? '',
       title: map['title'] ?? '',
       content: map['content'] ?? '',
-      imageUrl: map['image_url'] ?? '',
+      imageUrl: map['image_url'],
       topics: List<String>.from(map['topics'] ?? []),
       updatedAt: map['updated_at'] == null
           ? DateTime.now()

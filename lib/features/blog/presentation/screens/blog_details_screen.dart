@@ -43,7 +43,9 @@ class BlogDetailsScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.network('https://hpyhycuhxoqdjzkpbpag.supabase.co/storage/v1/object/public/blog_images/0309bcd0-49db-11ef-9fb0-0d6785907b1e'),
+              child: Image.network(
+                blog.imageUrl,
+              ),
             ),
           ],
         ),
