@@ -1,4 +1,5 @@
 import 'package:blog_app/core/common/cubits/app_user/app_user_cubit.dart';
+import 'package:blog_app/core/network/connection_checker.dart';
 import 'package:blog_app/core/secrets/app_secrets.dart';
 import 'package:blog_app/features/auth/data/datasources/auth_remote_data_base_source.dart';
 import 'package:blog_app/features/auth/data/repositories/auth_repository_impl.dart';
@@ -14,6 +15,7 @@ import 'package:blog_app/features/blog/domain/usecases/get_all_blogs_use_case.da
 import 'package:blog_app/features/blog/domain/usecases/upload_blog_use_case.dart';
 import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final serviceLocator = GetIt.instance;
@@ -32,6 +34,10 @@ Future<void> initDependencies() async {
   serviceLocator.registerLazySingleton(
     () => AppUserCubit(),
   );
+
+  serviceLocator.registerFactory(
+    () => InternetConnection(),
+  );
 }
 
 void _initAuth() {
@@ -42,8 +48,16 @@ void _initAuth() {
     ),
   );
 
+  
+  serviceLocator.registerFactory<ConnectionChecker>(
+    () => ConnectionCheckerImpl(
+      serviceLocator(),
+    ),
+  );
+
   serviceLocator.registerFactory<AuthRepository>(
     () => AuthRepositoryImpl(
+      serviceLocator(),
       serviceLocator(),
     ),
   );
