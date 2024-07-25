@@ -50,7 +50,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return left(
         Failure(e.message),
       );
-    } on ServerExcpetion catch (e) {
+    } on ServerException catch (e) {
       return left(
         Failure(e.message),
       );
@@ -67,7 +67,7 @@ class AuthRepositoryImpl implements AuthRepository {
         );
       }
       return right(user);
-    } on ServerExcpetion catch (e) {
+    } on ServerException catch (e) {
       return Left(
         Failure(
           e.message,

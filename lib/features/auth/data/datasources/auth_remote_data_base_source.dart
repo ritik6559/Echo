@@ -36,13 +36,13 @@ class AuthRemoteDataBaseSourceImpl implements AuthRemoteDataBaseSource {
       final res = await supabaseClient.auth
           .signInWithPassword(password: password, email: email);
       if (res.user == null) {
-        throw ServerExcpetion(message: 'User not found!');
+        throw ServerException(message: 'User not found!');
       }
       return UserModel.fromJson(res.user!.toJson()).copyWith(
         email: currentUserSession!.user.email,
       );
     } catch (e) {
-      throw ServerExcpetion(
+      throw ServerException(
         message: e.toString(),
       );
     }
@@ -63,7 +63,7 @@ class AuthRemoteDataBaseSourceImpl implements AuthRemoteDataBaseSource {
         return null;
       }
     } catch (e) {
-      throw ServerExcpetion(
+      throw ServerException(
         message: e.toString(),
       );
     }
@@ -81,13 +81,13 @@ class AuthRemoteDataBaseSourceImpl implements AuthRemoteDataBaseSource {
         'name': name,
       });
       if (res.user == null) {
-        throw ServerExcpetion(message: 'User is null!');
+        throw ServerException(message: 'User is null!');
       }
       return UserModel.fromJson(res.user!.toJson()).copyWith(
         email: currentUserSession!.user.email,
       );
     } catch (e) {
-      throw ServerExcpetion(
+      throw ServerException(
         message: e.toString(),
       );
     }
