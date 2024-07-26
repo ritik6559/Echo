@@ -16,6 +16,11 @@ class BlogScreen extends StatefulWidget {
 }
 
 class _BlogScreenState extends State<BlogScreen> {
+
+  List<String> selectedTopics = [];
+
+  
+
   @override
   void initState() {
     super.initState();

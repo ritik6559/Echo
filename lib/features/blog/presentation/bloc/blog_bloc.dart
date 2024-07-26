@@ -25,9 +25,13 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
     on<BlogUpload>(_onBlogUpload);
 
     on<BlogFetchAllBlogs>(_blogFetchAllBlogs);
+
   }
 
-  void _blogFetchAllBlogs(BlogFetchAllBlogs event, Emitter<BlogState> emit) async {
+
+
+  void _blogFetchAllBlogs(
+      BlogFetchAllBlogs event, Emitter<BlogState> emit) async {
     final res = await _getAllBlogsUseCase(NoParams());
 
     res.fold(

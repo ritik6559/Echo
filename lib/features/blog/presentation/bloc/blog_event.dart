@@ -19,6 +19,6 @@ final class BlogUpload extends BlogEvent {
   });
 }
 
-final class BlogFetchAllBlogs extends BlogEvent{}
+final class BlogFetchAllBlogs extends BlogEvent {}
 
 
